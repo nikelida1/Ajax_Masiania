@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+		*{padding: 0;
+		  margin: 0;
+		  font-family: 'Poppins', sans-serif;
+		  box-sizing: border-box;
+		  font-size: 24px;
+		  border-radius: 10px;
+		}
+
+		#wrapper{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			width: 700px;
+			border:2px solid paleVioletRed;
+			text-align: center;
+			padding: 10px;
+		}
+
+		#wrapper button {
+			width: 100%;
+		    background:powderBlue;
+		    border:none;
+		    cursor: pointer;
+	    }
+         #wrapper button:hover {
+         	background:plum;
+         }
+
+        .danifromServer {
+        	display: none;
+        	margin-top: 30px;
+        	background:plum;
+        	}
+
+         .danifromServer p {
+         	background:white;
+         	border:5px dotted plum;
+         	}
+
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+	<p>Масяня! <br> Натисни на цю кнопку, щоб отримати дані з серверу:</p>
+	<button>Кнопка</button>
+	<div class="danifromServer"> Ви отримали наступні дані з серверу:
+		<p></p>
+	</div>
+	</div>
+
+ <script>
+ 	document.querySelector('button').onclick = function getData() {
+         let xhr = new XMLHttpRequest();
+         xhr.open('GET', 'https://nikelida1.github.io/Sample/sample.txt',true);
+
+         xhr.onreadystatechange = function(){
+         	if(this.status ==200 && this.readyState ==4) {
+         	document.querySelector('.danifromServer').style.display = 'block';
+            document.querySelector('.danifromServer p').innerHTML = this.responseText;
+         	}
+
+         	else if(this.status ==404) {
+         	document.querySelector('.danifromServer').style.display = 'block';
+            document.querySelector('.danifromServer p').innerHTML = 'Дані не знайдено';
+         	}
+         }
+         xhr.send();
+        
+ 	}
+ </script>
+</body>
+</html>
